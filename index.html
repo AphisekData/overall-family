@@ -391,16 +391,16 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
 
     <div class="stock-header">
       <div class="stock-metric">
-        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);display:inline-block;flex-shrink:0;"></span> Total Value</div>
-        <div class="sm-val" id="st-total">฿—</div>
+        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:var(--amber);"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;flex-shrink:0;"></span> Total Value</div>
+        <div class="sm-val amber" id="st-total">฿—</div>
       </div>
       <div class="stock-metric">
-        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:#ff4d6d;"><span style="width:8px;height:8px;border-radius:50%;background:#ff4d6d;display:inline-block;flex-shrink:0;"></span> Total Profit</div>
-        <div class="sm-val red" id="st-profit">฿—</div>
+        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;" id="st-profit-icon"><span style="width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;background:#ff4d6d;"></span> Total Profit</div>
+        <div class="sm-val" id="st-profit">฿—</div>
       </div>
       <div class="stock-metric">
-        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:#ff4d6d;"><span style="width:8px;height:8px;border-radius:50%;background:#ff4d6d;display:inline-block;flex-shrink:0;"></span> Total Return</div>
-        <div class="sm-val red" id="st-return">—%</div>
+        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;" id="st-return-icon"><span style="width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;background:#ff4d6d;"></span> Total Return</div>
+        <div class="sm-val" id="st-return">—%</div>
       </div>
     </div>
 
@@ -805,8 +805,22 @@ function buildStock(){
   const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('st-date').textContent=`${now.getDate()} ${M[now.getMonth()]} ${now.getFullYear()}`;
   document.getElementById('st-total').textContent=fmt(D.st_total);
-  document.getElementById('st-profit').textContent=(D.st_profit>=0?'+':'')+fmt(Math.abs(D.st_profit));
-  document.getElementById('st-return').textContent=(D.st_return>=0?'+':'')+D.st_return.toFixed(2)+'%';
+
+  const profitEl=document.getElementById('st-profit');
+  const profitIconEl=document.getElementById('st-profit-icon');
+  const profitColor=D.st_profit>=0?'var(--green)':'var(--red)';
+  profitEl.textContent=(D.st_profit>=0?'+':'-')+'฿'+Math.abs(D.st_profit).toLocaleString();
+  profitEl.style.color=profitColor;
+  profitIconEl.style.color=profitColor;
+  profitIconEl.querySelector('span').style.background=profitColor;
+
+  const returnEl=document.getElementById('st-return');
+  const returnIconEl=document.getElementById('st-return-icon');
+  const returnColor=D.st_return>=0?'var(--green)':'var(--red)';
+  returnEl.textContent=(D.st_return>=0?'+':'')+D.st_return.toFixed(2)+'%';
+  returnEl.style.color=returnColor;
+  returnIconEl.style.color=returnColor;
+  returnIconEl.querySelector('span').style.background=returnColor;
 
   const gpct=((D.st_total/10000000)*100).toFixed(2);
   document.getElementById('goal-fill').style.width=gpct+'%';
