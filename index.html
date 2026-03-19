@@ -144,6 +144,18 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
 #stockLegend>div{display:flex;align-items:center;gap:5px;padding:3px 8px;background:var(--sf2);border:1px solid var(--bd);border-radius:6px;}
 
 .green{color:var(--green);}.red{color:var(--red);}.blue{color:var(--blue);}.amber{color:var(--amber);}
+.dot-circle{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dot-circle.med-on{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.35);}
+.dot-circle.med-off{background:rgba(255,255,255,0.04);border:1px solid var(--bd);}
+.dot-inner-med{width:7px;height:7px;border-radius:50%;background:var(--green);}
+.dot-circle.love-on{background:rgba(244,114,182,0.15);border:1px solid rgba(244,114,182,0.35);}
+.dot-circle.love-off{background:rgba(255,255,255,0.04);border:1px solid var(--bd);}
+.dot-inner-love{width:7px;height:7px;border-radius:50%;background:var(--pink);}
+.weekly-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);}
+.weekly-row:last-child{border:none;}
+.weekly-label{font-size:11px;color:var(--tx3);letter-spacing:.05em;font-family:'DM Mono',monospace;width:80px;flex-shrink:0;}
+.weekly-person{font-size:11px;color:var(--tx3);width:54px;flex-shrink:0;}
+.weekly-dots{display:flex;gap:3px;}
 
 /* RESPONSIVE */
 @media(max-width:1200px){
@@ -243,8 +255,7 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
         <div class="p-job" style="color:#4d9fff;" id="p1-job">Business Operation Officer</div>
         <div class="p-body" id="p1-body">น้ำหนัก 72 กก. | ส่วนสูง 170 ซม.</div>
         <div class="p-body">กรุ๊ปเลือด <span class="p-blood" style="color:#ff8888;" id="p1-blood">B+</span></div>
-        <div class="ex-row">
-          <span class="ex-label">Exercise Weekly</span>
+        <div style="display:none;">
           <div class="ex-circles" id="ex1"></div>
         </div>
       </div>
@@ -258,12 +269,17 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
         <div class="p-job" style="color:#ff88aa;" id="p2-job">Nurse</div>
         <div class="p-body" id="p2-body">น้ำหนัก — กก. | ส่วนสูง — ซม.</div>
         <div class="p-body">กรุ๊ปเลือด <span class="p-blood" style="color:#ff8888;" id="p2-blood">O+</span></div>
-        <div class="ex-row">
-          <span class="ex-label">Exercise Weekly</span>
+        <div style="display:none;">
           <div class="ex-circles" id="ex2"></div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- กิจกรรมประจำสัปดาห์ -->
+  <div class="sec">
+    <div class="sec-head"><div class="sec-dot" style="background:#00e87a;"></div><span class="sec-title">กิจกรรมประจำสัปดาห์</span></div>
+    <div id="weeklyActivity"></div>
   </div>
 
   <!-- แผนการและโปรเจกต์ -->
@@ -424,6 +440,8 @@ const D = {
   /* Exercise: W=weight C=cardio counts this week */
   ex1_w:2, ex1_c:1, /* Aphisek */
   ex2_w:2, ex2_c:2, /* Oraya */
+  med1:3, med2:3, /* Meditation: Aphisek, Oraya */
+  love:3, /* Love activity this week */
 
   /* Income */
   income:[
@@ -559,6 +577,58 @@ function externalTooltip(context,tot,unit){
   if(top<8) top=8;
   tip.style.left=left+'px';
   tip.style.top=top+'px';
+}
+
+/* ===== WEEKLY ACTIVITY ===== */
+function buildDots(count, total, type){
+  let html='';
+  for(let i=0;i<total;i++){
+    const on=i<count;
+    const cls=type==='med'?(on?'med-on':'med-off'):(on?'love-on':'love-off');
+    const inner=type==='med'?'dot-inner-med':'dot-inner-love';
+    html+=`<div class="dot-circle ${cls}">${on?`<div class="${inner}"></div>`:''}</div>`;
+  }
+  return html;
+}
+
+function buildWeeklyActivity(){
+  const p1Name=document.getElementById('p1-name')?.textContent||'Aphisek';
+  const p2Name=document.getElementById('p2-name')?.textContent||'Oraya';
+
+  // Exercise rows
+  function exDots(w,c){
+    let h='';
+    for(let i=0;i<3;i++) h+=`<div class="exc ${i<w?'w':'e'}">${'W'}</div>`;
+    for(let i=0;i<2;i++) h+=`<div class="exc ${i<c?'c':'e'}">${'C'}</div>`;
+    return h;
+  }
+
+  document.getElementById('weeklyActivity').innerHTML=`
+    <div class="weekly-row">
+      <span class="weekly-label">EXERCISE</span>
+      <span class="weekly-person">${p1Name.split(' ')[0]}</span>
+      <div class="weekly-dots ex-circles">${exDots(D.ex1_w,D.ex1_c)}</div>
+    </div>
+    <div class="weekly-row">
+      <span class="weekly-label"></span>
+      <span class="weekly-person">${p2Name.split(' ')[0]}</span>
+      <div class="weekly-dots ex-circles">${exDots(D.ex2_w,D.ex2_c)}</div>
+    </div>
+    <div class="weekly-row">
+      <span class="weekly-label">MEDITATION</span>
+      <span class="weekly-person">${p1Name.split(' ')[0]}</span>
+      <div class="weekly-dots">${buildDots(D.med1,5,'med')}</div>
+    </div>
+    <div class="weekly-row">
+      <span class="weekly-label"></span>
+      <span class="weekly-person">${p2Name.split(' ')[0]}</span>
+      <div class="weekly-dots">${buildDots(D.med2,5,'med')}</div>
+    </div>
+    <div class="weekly-row">
+      <span class="weekly-label">LOVE</span>
+      <span class="weekly-person">Together</span>
+      <div class="weekly-dots">${buildDots(D.love,5,'love')}</div>
+    </div>`;
 }
 
 /* ===== EXERCISE CIRCLES ===== */
@@ -782,6 +852,7 @@ function buildStock(){
 function runDashboard(){
   buildExCircles('ex1',D.ex1_w,D.ex1_c);
   buildExCircles('ex2',D.ex2_w,D.ex2_c);
+  buildWeeklyActivity();
   buildProjects();
   buildGrowth();
   buildWishlist();
@@ -865,6 +936,9 @@ async function loadAllSheets(id){
     D.ex1_c=parseInt(prof.p1_ex_c)||0;
     D.ex2_w=parseInt(prof.p2_ex_w)||0;
     D.ex2_c=parseInt(prof.p2_ex_c)||0;
+    D.med1=parseInt(prof.p1_med)>=0?parseInt(prof.p1_med):D.med1;
+    D.med2=parseInt(prof.p2_med)>=0?parseInt(prof.p2_med):D.med2;
+    D.love=parseInt(prof.love)>=0?parseInt(prof.love):D.love;
 
     /* Render Profile fields — ดึงจาก Sheet เสมอ */
     const setEl=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null&&val!=='')el.textContent=val;};
