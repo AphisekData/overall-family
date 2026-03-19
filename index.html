@@ -864,21 +864,15 @@ async function loadAllSheets(id){
 
     /* Render Profile fields — ดึงจาก Sheet เสมอ */
     const setEl=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null&&val!=='')el.textContent=val;};
-    if(prof.p1_name){
-      setEl('p1-name', prof.p1_name);
-      const ini1=prof.p1_name.split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
-      setEl('p1-avatar', ini1||'AT');
-    }
+    setEl('p1-name', prof.p1_name);
+    {const ini1=(prof.p1_name||'').replace(/\s+/g,' ').trim().split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase(); if(ini1) setEl('p1-avatar',ini1);}
     if(prof.p1_age||prof.p1_dob) setEl('p1-age',(prof.p1_age?prof.p1_age+' ปี':'—')+' — เกิด '+(prof.p1_dob||'—'));
     setEl('p1-job', prof.p1_job);
     if(prof.p1_weight||prof.p1_height) setEl('p1-body','น้ำหนัก '+(prof.p1_weight||'—')+' กก. | ส่วนสูง '+(prof.p1_height||'—')+' ซม.');
     setEl('p1-blood', prof.p1_blood);
 
-    if(prof.p2_name){
-      setEl('p2-name', prof.p2_name);
-      const ini2=prof.p2_name.split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
-      setEl('p2-avatar', ini2||'OR');
-    }
+    setEl('p2-name', prof.p2_name);
+    {const ini2=(prof.p2_name||'').replace(/\s+/g,' ').trim().split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase(); if(ini2) setEl('p2-avatar',ini2);}
     if(prof.p2_age||prof.p2_dob) setEl('p2-age',(prof.p2_age?prof.p2_age+' ปี':'—')+' — เกิด '+(prof.p2_dob||'—'));
     setEl('p2-job', prof.p2_job);
     if(prof.p2_weight||prof.p2_height) setEl('p2-body','น้ำหนัก '+(prof.p2_weight||'—')+' กก. | ส่วนสูง '+(prof.p2_height||'—')+' ซม.');
