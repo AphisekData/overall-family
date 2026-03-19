@@ -857,6 +857,8 @@ async function loadAllSheets(id){
     const prof={};
     profRows.slice(1).forEach(r=>{if(r[0]){const v=(r[1]||'').trim()||(r[2]||'').trim();prof[r[0].trim()]=v;}});
     console.log('[Profile Sheet]', prof);
+    console.log('[Profile Raw rows]', profRows.slice(0,5).map(r=>JSON.stringify(r)));
+    console.log('[Row2 char codes]', [...(profRows[1]?.[0]||'')].map(c=>c.charCodeAt(0)));
     D.ex1_w=parseInt(prof.p1_ex_w)||0;
     D.ex1_c=parseInt(prof.p1_ex_c)||0;
     D.ex2_w=parseInt(prof.p2_ex_w)||0;
