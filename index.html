@@ -113,7 +113,7 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
 .person-tag span{font-weight:700;}
 
 /* STOCK */
-.stock-header{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.stock-header{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
 .stock-metric{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;}
 .stock-metric .sm-icon{font-size:9px;color:var(--tx3);margin-bottom:7px;display:flex;align-items:center;gap:5px;letter-spacing:.08em;text-transform:uppercase;font-family:'DM Mono',monospace;}
 .stock-metric .sm-label{font-size:10px;color:var(--tx3);margin-bottom:3px;}
@@ -173,7 +173,7 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
   .content{padding:22px 18px;gap:20px;}
   .card-donut{grid-template-columns:1fr 200px;}
   .stock-body{grid-template-columns:1fr 1fr;}
-  .stock-header{grid-template-columns:repeat(3,1fr);}
+  .stock-header{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:600px){
   .brand .title{font-size:26px;}
@@ -389,6 +389,26 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
       <span class="goal-pct-txt" id="goal-pct">—%</span>
     </div>
 
+    <!-- Years to Goal + ถึงเป้าปี -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div class="stock-metric">
+        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:#4ade80;"><span style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;flex-shrink:0;"></span> Years to Goal</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-top:2px;">
+          <div class="sm-val" style="color:#4ade80;" id="st-years">—</div>
+          <div style="font-size:12px;color:var(--tx3);font-family:'DM Mono',monospace;">ปี</div>
+        </div>
+        <div style="font-size:10px;color:var(--tx3);margin-top:4px;font-family:'DM Mono',monospace;">@ 12% annual return</div>
+      </div>
+      <div class="stock-metric">
+        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:#4ade80;"><span style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;flex-shrink:0;"></span> ถึงเป้าปี</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-top:2px;">
+          <div class="sm-val" style="color:#4ade80;" id="st-goal-year">—</div>
+        </div>
+        <div style="font-size:10px;color:var(--tx3);margin-top:4px;font-family:'DM Mono',monospace;" id="st-goal-age">อายุ — ปี</div>
+      </div>
+    </div>
+
+    <!-- Total Value / Profit / Return / DCA -->
     <div class="stock-header">
       <div class="stock-metric">
         <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:var(--amber);"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;flex-shrink:0;"></span> Total Value</div>
@@ -402,9 +422,13 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
         <div class="sm-icon" style="display:flex;align-items:center;gap:6px;" id="st-return-icon"><span style="width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;background:#ff4d6d;"></span> Total Return</div>
         <div class="sm-val" id="st-return">—%</div>
       </div>
+      <div class="stock-metric">
+        <div class="sm-icon" style="display:flex;align-items:center;gap:6px;color:var(--purple);"><span style="width:8px;height:8px;border-radius:50%;background:var(--purple);display:inline-block;flex-shrink:0;"></span> DCA / Month</div>
+        <div class="sm-val" style="color:var(--purple);" id="st-dca">฿—</div>
+      </div>
     </div>
 
-    <div class="stock-body">
+        <div class="stock-body">
       <!-- Stock Donut + Legend inside card -->
       <div class="stock-donut-wrap" style="flex-direction:column;gap:16px;align-items:center;">
         <div style="position:relative;width:240px;height:240px;flex-shrink:0;">
@@ -479,7 +503,7 @@ const D = {
   ],
 
   /* Stock */
-  st_total:110000, st_profit:-900, st_return:-0.81,
+  st_total:110000, st_profit:-900, st_return:-0.81, st_dca:10000,
   st_stocks:[
     {name:'NVDA',pct:12},{name:'AAPL',pct:10.5},
     {name:'GOOGL',pct:9.5},{name:'MSFT',pct:9},
@@ -822,11 +846,34 @@ function buildStock(){
   returnIconEl.style.color=returnColor;
   returnIconEl.querySelector('span').style.background=returnColor;
 
+  document.getElementById('st-dca').textContent=fmt(D.st_dca);
+
+  /* Years to Goal — FV = PV*(1+r)^n + PMT*((1+r)^n-1)/r, binary search */
+  (function(){
+    const goal=D.st_goal||10000000;
+    const pv=D.st_total;
+    const pmt=D.st_dca;
+    const r=0.12/12;
+    const currentAge=29;
+    const currentYear=new Date().getFullYear();
+    let lo=0,hi=1200;
+    for(let i=0;i<80;i++){
+      const mid=(lo+hi)/2;
+      const fv=pv*Math.pow(1+r,mid)+pmt*(Math.pow(1+r,mid)-1)/r;
+      if(fv>=goal)hi=mid;else lo=mid;
+    }
+    const years=hi/12;
+    const ageAtGoal=Math.round(currentAge+years);
+    const yearAtGoal=Math.round(currentYear+years);
+    document.getElementById('st-years').textContent=years.toFixed(1);
+    document.getElementById('st-goal-year').textContent=yearAtGoal;
+    document.getElementById('st-goal-age').textContent='อายุ '+ageAtGoal+' ปี';
+  })();
+
   const gpct=((D.st_total/10000000)*100).toFixed(2);
   document.getElementById('goal-fill').style.width=gpct+'%';
   document.getElementById('goal-pct').textContent=gpct+'%';
 
-  /* Stock Donut — blue shades */
   const stColors=genBlueShades(D.st_stocks.length);
   new Chart(document.getElementById('stockDonut'),{
     type:'doughnut',
@@ -834,7 +881,6 @@ function buildStock(){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'50%',layout:{padding:10}}
   });
 
-  /* Stock Legend */
   document.getElementById('stockLegend').innerHTML=D.st_stocks.map((s,i)=>`
     <div style="display:flex;align-items:center;gap:5px;padding:4px 8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:7px;">
       <span style="width:8px;height:8px;border-radius:50%;background:${stColors[i]};flex-shrink:0;display:inline-block;"></span>
@@ -842,7 +888,6 @@ function buildStock(){
       <span style="font-size:11px;font-weight:600;color:#fff;">${s.pct}%</span>
     </div>`).join('');
 
-  /* Recap */
   new Chart(document.getElementById('recapChart'),{
     type:'line',
     data:{labels:['MON','TUE','WED','THU','FRI'],datasets:[{data:D.recap,borderColor:'#00e87a',borderWidth:2,pointBackgroundColor:'#00e87a',pointRadius:4,tension:0.35,fill:true,backgroundColor:'rgba(0,232,122,0.06)'}]},
@@ -1002,6 +1047,7 @@ async function loadAllSheets(id){
     D.st_total =parseFloat(stKV.st_total) ||D.st_total;
     D.st_profit=parseFloat(stKV.st_profit)||D.st_profit;
     D.st_return=parseFloat(stKV.st_return)||D.st_return;
+    D.st_dca   =parseFloat(stKV.st_dca)   ||D.st_dca;
     D.st_goal  =parseFloat(stKV.st_goal)  ||D.st_goal;
     if(stStocks.length) D.st_stocks=stStocks;
     if(stRecap.length)  D.recap=stRecap;
