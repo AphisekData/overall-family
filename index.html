@@ -855,8 +855,10 @@ async function loadAllSheets(id){
 
     /* PROFILE */
     const prof={};
+    console.log('[RAW profRows]', JSON.stringify(profRows.slice(0,4)));
     profRows.forEach(r=>{
       const k=(r[0]||'').trim();
+      console.log('[row]', JSON.stringify(r), '| key:', JSON.stringify(k), '| starts:', k.startsWith('p1_'));
       if(k.startsWith('p1_')||k.startsWith('p2_')){
         const v=(r[1]||'').trim()||(r[2]||'').trim();
         prof[k]=v;
