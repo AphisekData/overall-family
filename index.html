@@ -1056,6 +1056,16 @@ body::before{
 }
 .wl-circle:hover { border-color:rgba(198,169,107,0.35); }
 
+
+/* ===== CONTENT FADE IN ===== */
+.layout {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.layout.loaded {
+  opacity: 1;
+}
+
 </style>
 </head>
 <body>
@@ -1894,6 +1904,7 @@ function runDashboard(){
 function useLocalData(){
   document.getElementById('setupModal').style.display='none';
   runDashboard();
+  document.querySelector('.layout')?.classList.add('loaded');
 }
 
 function showStatus(msg,isError=false){
@@ -2040,6 +2051,7 @@ async function loadAllSheets(id){
 
     runDashboard();
     if(typeof wlRender==='function') wlRender();
+    document.querySelector('.layout')?.classList.add('loaded');
     showStatus('✓ โหลดข้อมูลสำเร็จ');
   }catch(e){
     showStatus('✗ '+e.message,true);
