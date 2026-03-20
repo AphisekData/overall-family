@@ -1960,11 +1960,11 @@ async function loadAllSheets(id){
       const v=(r[1]||'').trim()||(r[2]||'').trim();
       prof[k]=v;
     });
-    D.ex1_w=parseInt(prof.p1_ex_w)||0;
-    D.ex1_c=parseInt(prof.p1_ex_c)||0;
+    D.ex1_w=parseInt(prof.ex_w||prof.p1_ex_w)||0;
+    D.ex1_c=parseInt(prof.ex_c||prof.p1_ex_c)||0;
     D.ex2_w=parseInt(prof.p2_ex_w)||0;
     D.ex2_c=parseInt(prof.p2_ex_c)||0;
-    D.med1=parseInt(prof.p1_med)>=0?parseInt(prof.p1_med):D.med1;
+    D.med1=parseInt(prof.med??prof.p1_med)>=0?parseInt(prof.med??prof.p1_med):D.med1;
     D.med2=parseInt(prof.p2_med)>=0?parseInt(prof.p2_med):D.med2;
     D.love=parseInt(prof.love)>=0?parseInt(prof.love):D.love;
     D.family=parseInt(prof.family)>=0?parseInt(prof.family):D.family;
