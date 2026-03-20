@@ -2214,7 +2214,7 @@ function wlRenderSections(){
   if(!el)return;
   el.innerHTML=WL_SECTIONS.map(s=>{
     const pct=wlSecPct(s);
-    const prog=s.habits.length?`${s.habits.reduce((a,h)=>a+Math.min(wlCountDone(h.id),h.target),0)}/${s.habits.reduce((a,h)=>a+h.target,0)}`:'';
+    const prog=s.habits.length?`${s.habits.reduce((a,h)=>a+Math.min(h.sheetKey?(D[h.sheetKey]||0):wlCountDone(h.id),h.target),0)}/${s.habits.reduce((a,h)=>a+h.target,0)}`:'';
     const collapsed=s._collapsed?'collapsed':'';
     const habitsHtml=s.habits.map(h=>{
       const done=h.sheetKey?((D[h.sheetKey]||0)):wlCountDone(h.id);
