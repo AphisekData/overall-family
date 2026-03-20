@@ -562,21 +562,29 @@ const fmtFull=n=>{
 };
 
 function genBlueShades(n){
+  const stops=['#1a4fd6','#1a7fd6','#1ab8d6','#00d4a8','#00e87a','#4ade80','#86efac'];
+  if(n===1) return [stops[0]];
   return Array.from({length:n},(_,i)=>{
-    const t=i/(n-1||1);
-    const r=Math.round(15+t*25);
-    const g=Math.round(50+t*130);
-    const b=Math.round(220-t*90);
-    return `rgb(${r},${g},${b})`;
+    const t=i/(n-1);
+    const si=t*(stops.length-1);
+    const lo=Math.floor(si), hi=Math.min(lo+1,stops.length-1);
+    const f=si-lo;
+    const c1=stops[lo].match(/\w\w/g).map(x=>parseInt(x,16));
+    const c2=stops[hi].match(/\w\w/g).map(x=>parseInt(x,16));
+    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*f)},${Math.round(c1[1]+(c2[1]-c1[1])*f)},${Math.round(c1[2]+(c2[2]-c1[2])*f)})`;
   });
 }
 function genPurpleShades(n){
+  const stops=['#4c1d95','#7c3aed','#a855f7','#d946ef','#f472b6','#fb7185','#fda4af'];
+  if(n===1) return [stops[0]];
   return Array.from({length:n},(_,i)=>{
-    const t=i/(n-1||1);
-    const r=Math.round(60+t*80);
-    const g=Math.round(30+t*50);
-    const b=Math.round(200-t*50);
-    return `rgb(${r},${g},${b})`;
+    const t=i/(n-1);
+    const si=t*(stops.length-1);
+    const lo=Math.floor(si), hi=Math.min(lo+1,stops.length-1);
+    const f=si-lo;
+    const c1=stops[lo].match(/\w\w/g).map(x=>parseInt(x,16));
+    const c2=stops[hi].match(/\w\w/g).map(x=>parseInt(x,16));
+    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*f)},${Math.round(c1[1]+(c2[1]-c1[1])*f)},${Math.round(c1[2]+(c2[2]-c1[2])*f)})`;
   });
 }
 
@@ -783,9 +791,16 @@ function buildFixCost(){
     </div>`;
 
   document.getElementById('fc-donut-val').textContent=fmt(tot);
+  const redStops=['#7f1d1d','#b91c1c','#ef4444','#f97316','#fb923c','#fbbf24'];
   const redShades=Array.from({length:sorted.length},(_,i)=>{
-    const t=i/(sorted.length-1||1);
-    return `rgb(${Math.round(180+t*40)},${Math.round(30+t*40)},${Math.round(60+t*30)})`;
+    if(sorted.length===1) return redStops[0];
+    const t=i/(sorted.length-1);
+    const si=t*(redStops.length-1);
+    const lo=Math.floor(si), hi=Math.min(lo+1,redStops.length-1);
+    const f=si-lo;
+    const c1=redStops[lo].match(/\w\w/g).map(x=>parseInt(x,16));
+    const c2=redStops[hi].match(/\w\w/g).map(x=>parseInt(x,16));
+    return `rgb(${Math.round(c1[0]+(c2[0]-c1[0])*f)},${Math.round(c1[1]+(c2[1]-c1[1])*f)},${Math.round(c1[2]+(c2[2]-c1[2])*f)})`;
   });
   new Chart(document.getElementById('fcDonut'),{
     type:'doughnut',
