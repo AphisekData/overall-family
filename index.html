@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overall Fam. — Aphisek & Oraya</title>
+<title>Overall AT World — Aphisek & Oraya</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
@@ -39,7 +39,13 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
 .sidebar{background:var(--sf);border-right:1px solid var(--bd);padding:28px 22px;position:sticky;top:0;height:100vh;overflow-y:scroll;overflow-x:hidden;overscroll-behavior:contain;display:flex;flex-direction:column;gap:18px;}
 
 /* BRAND */
-.brand .title{font-size:34px;font-weight:700;color:var(--tx);line-height:1.1;letter-spacing:-0.03em;}
+.brand-eyebrow{
+  font-size:8px;font-weight:400;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(198,169,107,0.55);font-family:'DM Mono',monospace;
+  margin-bottom:10px;
+}
+.brand .title{font-size:34px;font-weight:300;color:var(--tx);line-height:1.0;letter-spacing:-0.01em;}
+.brand .title em{font-style:italic;font-weight:500;letter-spacing:0.02em;}
 .brand .loc{display:flex;align-items:center;gap:6px;margin-top:5px;font-size:10px;color:var(--tx3);letter-spacing:0.1em;text-transform:uppercase;font-family:'DM Mono',monospace;}
 .loc-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px var(--green-d);animation:blink 2.4s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.35}}
@@ -137,7 +143,7 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
 .goal-strip{display:flex;align-items:center;gap:10px;background:var(--blue-d);border:1px solid rgba(59,130,246,.16);border-radius:var(--r);padding:9px 14px;margin-bottom:12px;}
 .goal-led{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;box-shadow:0 0 0 3px rgba(74,222,128,.14);}
 .goal-label{font-size:11px;color:var(--tx2);flex:1;}
-.goal-track-wrap{width:100px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+.goal-track-wrap{width:120px;height:6px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;}
 .goal-fill{height:100%;background:linear-gradient(90deg,var(--blue),#4ade80);border-radius:2px;}
 .goal-pct-txt{font-size:12px;font-weight:600;color:var(--blue);font-family:'DM Mono',monospace;}
 
@@ -213,7 +219,7 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
 </style>
 
 <!-- LUXURY THEME -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style id="luxury-override">
 :root{
   --bg:#050507;
@@ -367,6 +373,8 @@ body::after{
 .goal-pct-txt,.blue,.amber,.green,.red,.purple{font-weight:700 !important}
 .goal-track-wrap{
   background:rgba(255,255,255,.08) !important;
+  height:6px !important;
+  border-radius:4px !important;
 }
 #setupModal{
   background:rgba(2,4,9,.72) !important;
@@ -597,6 +605,8 @@ body::after{
 }
 .goal-track-wrap{
   background:rgba(255,255,255,.08) !important;
+  height:6px !important;
+  border-radius:4px !important;
 }
 .goal-fill{
   background:linear-gradient(90deg, #4a90ff, #59f0bc) !important;
@@ -701,14 +711,22 @@ body::before{
 
 .brand .title,
 .page-hero h1{
-  font-family:'Cormorant Garamond', 'Inter', serif !important;
-  font-weight:600 !important;
-  letter-spacing:-.04em !important;
-  background:linear-gradient(135deg, #fffdf7 0%, #f5ecdc 24%, #d9bf88 58%, #b99449 100%) !important;
+  font-family:'Cormorant Garamond', Georgia, serif !important;
+  font-weight:300 !important;
+  letter-spacing:0.01em !important;
+  background:linear-gradient(160deg, #fffdf7 0%, #f0e4c8 35%, #c9a96e 65%, #a07840 100%) !important;
   -webkit-background-clip:text !important;
   background-clip:text !important;
   color:transparent !important;
-  text-shadow:0 0 28px rgba(198,169,107,.10) !important;
+  text-shadow:none !important;
+}
+.brand .title em{
+  font-weight:400 !important;
+  font-style:italic !important;
+  background:linear-gradient(160deg, #fff9ef 0%, #e8d4a8 40%, #b8914a 100%) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  color:transparent !important;
 }
 
 .brand .loc{ color:rgba(245,241,234,.50) !important; }
@@ -880,6 +898,29 @@ body::before{
 .stock-metric .sm-icon{ color:rgba(245,241,234,.50) !important; }
 .stock-metric .sm-label{ color:rgba(245,241,234,.48) !important; }
 .stock-metric .sm-val{ letter-spacing:-.03em; }
+
+
+/* ===== BADGE COLOR RESTORE ===== */
+.badge-active {
+  background: rgba(48,209,88,0.12) !important;
+  color: #30d158 !important;
+  border: 1px solid rgba(48,209,88,0.25) !important;
+}
+.badge-pending {
+  background: rgba(255,214,10,0.12) !important;
+  color: #ffd60a !important;
+  border: 1px solid rgba(255,214,10,0.22) !important;
+}
+.badge-paused {
+  background: rgba(255,69,58,0.12) !important;
+  color: #ff453a !important;
+  border: 1px solid rgba(255,69,58,0.22) !important;
+}
+.badge-plan {
+  background: rgba(191,90,242,0.12) !important;
+  color: #bf5af2 !important;
+  border: 1px solid rgba(191,90,242,0.22) !important;
+}
 </style>
 </head>
 <body>
@@ -910,7 +951,9 @@ body::before{
 
   <!-- BRAND -->
   <div class="brand">
-    <div class="title">Overall<br>Family</div>
+    <div class="brand-eyebrow">FAMILY DASHBOARD</div>
+    <div class="title">Overall<br><em>AT World</em></div>
+    <div class="loc"><div class="loc-dot"></div>Nakhon Ratchasima</div>
   </div>
 
   <!-- FAMILY PROFILE -->
@@ -1401,7 +1444,7 @@ function buildIncome(){
         <span class="data-val" style="color:var(--green);">${fmtFull(s.val)}</span>
       </div>
     </div>`).join('')}
-    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;background:var(--green-d);border:1px solid rgba(34,197,94,.18);border-radius:8px;padding:8px 12px;">
+    <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.22);border-radius:8px;padding:8px 12px;">
       <div>
         <span style="font-size:12px;color:var(--tx2);">รวมออมทั้งหมด</span>
         <span style="font-size:10px;color:var(--green);margin-left:8px;font-family:'DM Mono',monospace;">${((totalSav/totalInc)*100).toFixed(1)}% ของรายได้</span>
@@ -1532,17 +1575,17 @@ function buildStock(){
 
   const profitEl=document.getElementById('st-profit');
   const profitIconEl=document.getElementById('st-profit-icon');
-  const profitColor=D.st_profit>=0?'var(--green)':'var(--red)';
+  const profitColor=D.st_profit<0?'#ff453a':D.st_profit>0?'#30d158':'#ffffff';
   profitEl.textContent=(D.st_profit>=0?'+':'-')+'฿'+Math.abs(D.st_profit).toLocaleString();
-  profitEl.style.color=profitColor;
+  profitEl.style.setProperty('color', profitColor, 'important');
   profitIconEl.style.color=profitColor;
   profitIconEl.querySelector('span').style.background=profitColor;
 
   const returnEl=document.getElementById('st-return');
   const returnIconEl=document.getElementById('st-return-icon');
-  const returnColor=D.st_return>=0?'var(--green)':'var(--red)';
+  const returnColor=D.st_return<0?'#ff453a':D.st_return>0?'#30d158':'#ffffff';
   returnEl.textContent=(D.st_return>=0?'+':'')+D.st_return.toFixed(2)+'%';
-  returnEl.style.color=returnColor;
+  returnEl.style.setProperty('color', returnColor, 'important');
   returnIconEl.style.color=returnColor;
   returnIconEl.querySelector('span').style.background=returnColor;
 
@@ -1646,13 +1689,14 @@ function buildStock(){
 
   const cmpDots={'MyPort':'#4d9fff','S&P500':'#a78bfa','NDQ100':'#f472b6','SET':'#34d399'};
   document.getElementById('compareEl').innerHTML=D.compare.map(c=>{
-    const isPos=c.val>=0;
-    const col=isPos?'#00e87a':'#ff4d6d';
+    const isPos=c.val>0;
+    const isNeg=c.val<0;
+    const col=isNeg?'#ff453a':isPos?'#30d158':'#ffffff';
     const dotCol=cmpDots[c.name]||'#aaa';
     return `<div class="cmp-row">
       <span style="width:10px;height:10px;border-radius:50%;background:${dotCol};flex-shrink:0;display:inline-block;"></span>
       <span class="cmp-name">${c.name}</span>
-      <span class="cmp-val" style="color:${col};margin-left:auto;">${isPos?'+':''}${c.val.toFixed(2)}%</span>
+      <span class="cmp-val" style="color:${col}!important;margin-left:auto;font-weight:700;">${isPos?'+':''}${c.val.toFixed(2)}%</span>
     </div>`;
   }).join('');
 }
