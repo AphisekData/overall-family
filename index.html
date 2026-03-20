@@ -2039,6 +2039,7 @@ async function loadAllSheets(id){
     });
 
     runDashboard();
+    if(typeof wlRender==='function') wlRender();
     showStatus('✓ โหลดข้อมูลสำเร็จ');
   }catch(e){
     showStatus('✗ '+e.message,true);
