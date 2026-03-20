@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overall AT World</title>
+<title>Overall AT World — Aphisek & Oraya</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
@@ -2104,17 +2104,17 @@ const WL_SECTIONS = [
   {
     id:'health', emoji:'🧠', title:'สุขภาพ กาย + จิต', color:'#c6a96b',
     habits:[
-      {id:'weight', label:'เวทเทรนนิ่ง', target:3, targetLabel:'3 วัน'},
-      {id:'cardio',  label:'คาร์ดิโอ',    target:2, targetLabel:'2 วัน'},
-      {id:'meditate',label:'นั่งสมาธิ',   target:3, targetLabel:'3 วัน'},
+      {id:'weight',   label:'เวทเทรนนิ่ง', target:3, targetLabel:'3 วัน', sheetKey:'ex1_w'},
+      {id:'cardio',   label:'คาร์ดิโอ',    target:2, targetLabel:'2 วัน', sheetKey:'ex1_c'},
+      {id:'meditate', label:'นั่งสมาธิ',   target:3, targetLabel:'3 วัน', sheetKey:'med1'},
     ],
     notes:[]
   },
   {
     id:'relation', emoji:'💛', title:'ความสัมพันธ์', color:'#f7c06a',
     habits:[
-      {id:'partner', label:'บอกรัก/ทำให้แฟนประทับใจ', target:5, targetLabel:'เป้า 5 วัน'},
-      {id:'family',  label:'โทรหาครอบครัว',            target:2, targetLabel:'เป้า 2 วัน'},
+      {id:'partner', label:'บอกรัก/ทำให้แฟนประทับใจ', target:5, targetLabel:'เป้า 5 วัน', sheetKey:'love'},
+      {id:'family',  label:'โทรหาครอบครัว',            target:2, targetLabel:'เป้า 2 วัน', sheetKey:'family'},
     ],
     notes:[]
   },
@@ -2184,7 +2184,7 @@ function wlSecPct(s){
   if(s.useWish)   return (D.wishlist&&D.wishlist.length>0)?100:0;
   if(!s.habits.length){return wlGetWD()[s.notes?.[0]?.id]?100:0;}
   const total=s.habits.reduce((a,h)=>a+h.target,0);
-  const done=s.habits.reduce((a,h)=>a+Math.min(wlCountDone(h.id),h.target),0);
+  const done=s.habits.reduce((a,h)=>a+Math.min(h.sheetKey?(D[h.sheetKey]||0):wlCountDone(h.id),h.target),0);
   return total>0?Math.round(done/total*100):0;
 }
 
@@ -2217,10 +2217,10 @@ function wlRenderSections(){
     const prog=s.habits.length?`${s.habits.reduce((a,h)=>a+Math.min(wlCountDone(h.id),h.target),0)}/${s.habits.reduce((a,h)=>a+h.target,0)}`:'';
     const collapsed=s._collapsed?'collapsed':'';
     const habitsHtml=s.habits.map(h=>{
-      const done=wlCountDone(h.id);
+      const done=h.sheetKey?((D[h.sheetKey]||0)):wlCountDone(h.id);
       const circles=Array.from({length:h.target},(_,i)=>{
         const isActive=i<done;
-        return `<div class="wl-circle ${isActive?'active':'inactive'}" onclick="wlToggleCircle('${h.id}',${i})">
+        return `<div class="wl-circle ${isActive?'active':'inactive'}" style="cursor:default;">
           ${isActive?'✓':''}
         </div>`;
       }).join('');
