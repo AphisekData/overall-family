@@ -319,7 +319,7 @@ body{background:var(--bg);color:var(--tx);font-family:'DM Sans','Sarabun',sans-s
       <div class="card-chart">
         <div style="position:relative;width:240px;height:240px;">
           <canvas id="incDonut"></canvas>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
             <div style="font-size:10px;color:rgba(255,255,255,0.3);">รวม</div>
             <div class="blue" style="font-size:24px;font-weight:700;" id="inc-donut-val">฿—</div>
           </div>
@@ -736,10 +736,26 @@ function buildIncome(){
   document.getElementById('incomeRows').innerHTML=rows;
   document.getElementById('inc-donut-val').textContent=fmt(totalInc);
   const blueShades=genBlueShades(donutData.length);
+  const totalInc2=donutData.reduce((a,d)=>a+d.val,0);
   new Chart(document.getElementById('incDonut'),{
     type:'doughnut',
-    data:{labels:donutData.map(d=>d.label),datasets:[{data:donutData.map(d=>d.val),backgroundColor:blueShades,borderWidth:2,borderColor:'#111318'}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'65%'}
+    data:{labels:donutData.map(d=>d.label),datasets:[{data:donutData.map(d=>d.val),backgroundColor:blueShades,borderWidth:2,borderColor:'#111318',hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'rgba(15,17,25,0.95)',
+          titleColor:'#fff',titleFont:{size:12,weight:'600'},
+          bodyColor:'rgba(255,255,255,0.65)',bodyFont:{size:12},
+          borderColor:'rgba(255,255,255,0.12)',borderWidth:1,
+          padding:10,cornerRadius:8,
+          callbacks:{
+            title:c=>[c[0].label],
+            label:c=>`  ฿${c.raw.toLocaleString()}  (${((c.raw/totalInc2)*100).toFixed(1)}%)`
+          }
+        }
+      }
+    }
   });
 }
 
