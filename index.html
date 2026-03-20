@@ -933,6 +933,129 @@ body::before{
 .brand-eyebrow {
   text-align: center !important;
 }
+
+/* ===== WEEKLY LIFE ZONE ===== */
+.wl-zone { display:flex;flex-direction:column;gap:8px; }
+
+/* Overview mini bars */
+.wl-overview {
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  margin-bottom:4px;
+}
+.wl-ov-card {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(198,169,107,0.10);
+  border-radius:10px;padding:9px 10px;
+  display:flex;align-items:center;gap:8px;
+}
+.wl-ov-emoji { font-size:14px;flex-shrink:0; }
+.wl-ov-info { flex:1;min-width:0; }
+.wl-ov-name { font-size:9px;color:rgba(245,241,234,0.45);margin-bottom:4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.wl-ov-bar-wrap { height:3px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden; }
+.wl-ov-bar { height:100%;border-radius:99px;transition:width .5s ease; }
+.wl-ov-pct { font-size:9px;color:rgba(245,241,234,0.35);font-family:'DM Mono',monospace;flex-shrink:0; }
+
+/* Section cards */
+.wl-sec {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(198,169,107,0.10);
+  border-radius:12px;overflow:hidden;
+  transition:border-color .2s;
+}
+.wl-sec:hover { border-color:rgba(198,169,107,0.20); }
+.wl-sec-hd {
+  display:flex;align-items:center;gap:8px;
+  padding:10px 12px;cursor:pointer;
+  transition:background .2s;
+  user-select:none;
+}
+.wl-sec-hd:hover { background:rgba(255,255,255,0.02); }
+.wl-sec-emoji { font-size:14px;flex-shrink:0; }
+.wl-sec-title { flex:1;font-size:11px;font-weight:600;color:rgba(245,241,234,0.80);letter-spacing:.02em; }
+.wl-sec-prog { font-size:9px;font-family:'DM Mono',monospace; }
+.wl-sec-chev { font-size:9px;color:rgba(245,241,234,0.25);transition:transform .2s; }
+.wl-sec.collapsed .wl-sec-chev { transform:rotate(-90deg); }
+.wl-sec-body { padding:10px 12px;display:flex;flex-direction:column;gap:10px; }
+.wl-sec.collapsed .wl-sec-body { display:none; }
+
+/* Habit row */
+.wl-habit-lbl {
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:10px;color:rgba(245,241,234,0.50);margin-bottom:5px;
+}
+.wl-habit-target { font-family:'DM Mono',monospace;font-size:9px;color:rgba(245,241,234,0.28); }
+.wl-days { display:flex;gap:3px; }
+.wl-day {
+  flex:1;height:30px;border-radius:7px;
+  border:1px solid rgba(255,255,255,0.07);
+  background:rgba(255,255,255,0.025);
+  color:rgba(245,241,234,0.28);
+  font-family:'DM Mono',monospace;font-size:8px;
+  cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;transition:all .15s;
+}
+.wl-day:hover { border-color:rgba(255,255,255,0.15);color:rgba(245,241,234,0.6); }
+.wl-day.done { color:#fff;font-weight:700;border-color:transparent; }
+.wl-day-name { font-size:7px; }
+.wl-day-chk { font-size:10px; }
+
+/* Note */
+.wl-note-lbl { font-size:9px;color:rgba(245,241,234,0.35);margin-bottom:4px; }
+.wl-note-input {
+  width:100%;background:rgba(255,255,255,0.025);
+  border:1px solid rgba(198,169,107,0.10);
+  border-radius:8px;padding:8px 10px;
+  color:rgba(245,241,234,0.75);font-size:11px;
+  font-family:'DM Sans','Sarabun',sans-serif;
+  resize:none;outline:none;min-height:56px;line-height:1.5;
+  transition:border-color .2s;
+}
+.wl-note-input::placeholder { color:rgba(245,241,234,0.20); }
+.wl-note-input:focus { border-color:rgba(198,169,107,0.30); }
+
+/* Week nav */
+
+
+/* Save mini bar */
+
+
+
+/* ===== HEALTH CHECKLIST STYLE ===== */
+.wl-check-row {
+  display:flex;align-items:center;gap:8px;
+  padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.wl-check-row:last-child { border:none; }
+.wl-check-label {
+  font-size:10px;color:rgba(245,241,234,0.45);
+  letter-spacing:.06em;text-transform:uppercase;
+  font-family:'DM Mono',monospace;width:72px;flex-shrink:0;
+}
+.wl-check-target {
+  font-size:9px;color:rgba(245,241,234,0.25);
+  font-family:'DM Mono',monospace;margin-left:auto;
+}
+.wl-circles { display:flex;gap:4px; }
+.wl-circle {
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .15s;flex-shrink:0;
+  font-size:11px;
+}
+.wl-circle.active {
+  background:rgba(48,209,88,0.15);
+  border:1px solid rgba(48,209,88,0.40);
+  color:#30d158;
+}
+.wl-circle.inactive {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  color:transparent;
+}
+.wl-circle:hover { border-color:rgba(198,169,107,0.35); }
+
 </style>
 </head>
 <body>
@@ -1000,10 +1123,18 @@ body::before{
     </div>
   </div>
 
-  <!-- กิจกรรมประจำสัปดาห์ -->
+  <!-- WEEKLY LIFE ZONE -->
   <div class="sec">
-    <div class="sec-head"><div class="sec-dot" style="background:#00e87a;"></div><span class="sec-title">กิจกรรมประจำสัปดาห์</span></div>
-    <div id="weeklyActivity"></div>
+    <div class="sec-head">
+      <div class="sec-dot" style="background:#c6a96b;box-shadow:0 0 0 4px rgba(198,169,107,0.12);"></div>
+      <span class="sec-title">WEEKLY LIFE</span>
+    </div>
+    <div class="wl-zone">
+      <!-- Overview bars -->
+      <div class="wl-overview" id="wlOverview"></div>
+      <!-- Sections -->
+      <div id="wlSections"></div>
+    </div>
   </div>
 
   <!-- แผนการและโปรเจกต์ -->
@@ -1012,17 +1143,9 @@ body::before{
     <div id="projList"></div>
   </div>
 
-  <!-- พัฒนาตัวเอง -->
-  <div class="sec">
-    <div class="sec-head"><div class="sec-dot" style="background:#00ccff;"></div><span class="sec-title">พัฒนาตัวเอง</span></div>
-    <div id="growthList"></div>
-  </div>
 
-  <!-- สิ่งที่อยากทำ -->
-  <div class="sec">
-    <div class="sec-head"><div class="sec-dot" style="background:#00e87a;"></div><span class="sec-title">สิ่งที่อยากทำ</span></div>
-    <div id="wishList"></div>
-  </div>
+
+
 
 </div>
 
@@ -1190,6 +1313,7 @@ const D = {
   ex2_w:2, ex2_c:2, /* Oraya */
   med1:3, med2:3, /* Meditation: Aphisek, Oraya */
   love:3, /* Love activity this week */
+  family:0, /* โทรหาครอบครัว */
 
   /* Income */
   income:[
@@ -1407,12 +1531,16 @@ function buildProjects(){
 }
 
 function buildGrowth(){
-  document.getElementById('growthList').innerHTML=D.growth.map(g=>`
+  const el=document.getElementById('growthList');
+  if(!el)return;
+  el.innerHTML=D.growth.map(g=>`
     <div class="list-item"><div class="list-bullet" style="background:#00ccff;"></div>${g}</div>`).join('');
 }
 
 function buildWishlist(){
-  document.getElementById('wishList').innerHTML=D.wishlist.map(w=>`
+  const el=document.getElementById('wishList');
+  if(!el)return;
+  el.innerHTML=D.wishlist.map(w=>`
     <div class="list-item"><div class="list-bullet" style="background:${w.color};"></div>${w.txt}</div>`).join('');
 }
 
@@ -1492,6 +1620,25 @@ function buildIncome(){
 }
 
 /* ===== FIX COST ===== */
+function getFixcostEmoji(name){
+  const n=name.toLowerCase();
+  if(n.includes('ผ่อนบ้าน')||n.includes('บ้าน'))   return '🏠';
+  if(n.includes('ผ่อนรถ')||n.includes('รถ'))        return '🚗';
+  if(n.includes('อาหาร')||n.includes('ข้าว'))        return '🍽️';
+  if(n.includes('น้ำมัน'))                            return '⛽';
+  if(n.includes('น้ำ')&&n.includes('ไฟ'))            return '💡';
+  if(n.includes('น้ำ'))                               return '💧';
+  if(n.includes('ไฟ'))                                return '⚡';
+  if(n.includes('โทรศัพท์')||n.includes('มือถือ'))   return '📱';
+  if(n.includes('อินเทอร์เน็ต')||n.includes('เน็ต')) return '📡';
+  if(n.includes('ประกัน'))                            return '🛡️';
+  if(n.includes('ส่วนตัว')||n.includes('ใช้จ่าย'))   return '👜';
+  if(n.includes('ลูก')||n.includes('เด็ก'))           return '👶';
+  if(n.includes('สุขภาพ')||n.includes('หมอ'))        return '🏥';
+  if(n.includes('เดินทาง')||n.includes('ค่าเดิน'))   return '🚇';
+  if(n.includes('บันเทิง')||n.includes('ท่องเที่ยว'))return '🎯';
+  return '💸';
+}
 function buildFixCost(){
   const sorted=[...D.fixcost].sort((a,b)=>b.val-a.val);
   const tot=sorted.reduce((a,f)=>a+f.val,0);
@@ -1500,7 +1647,7 @@ function buildFixCost(){
   document.getElementById('fixcostRows').innerHTML=
     sorted.map(f=>`
     <div class="data-row">
-      <span class="data-label">${f.name}</span>
+      <span class="data-label"><span style="margin-right:8px;font-size:14px;">${getFixcostEmoji(f.name)}</span>${f.name}</span>
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:10px;color:var(--tx3);font-family:'DM Mono',monospace;">${totalInc?((f.val/totalInc)*100).toFixed(1)+'%':'—'}</span>
         <span class="data-val">${fmtFull(f.val)}</span>
@@ -1549,11 +1696,28 @@ function buildFixCost(){
 }
 
 /* ===== ASSETS ===== */
+function getAssetEmoji(name){
+  const n=name.toLowerCase();
+  if(n.includes('ทอง'))            return '🪙';
+  if(n.includes('กู้')||n.includes('ปล่อย')) return '🤝';
+  if(n.includes('พอร์ต')||n.includes('ลงทุน')) return '📈';
+  if(n.includes('กองทุนสำรอง'))    return '🏦';
+  if(n.includes('ประกันสังคม'))    return '🛡️';
+  if(n.includes('สำรอง')||n.includes('เก็บ')) return '💰';
+  if(n.includes('ลูก')||n.includes('ออม'))    return '👶';
+  if(n.includes('ประกัน'))         return '🔒';
+  if(n.includes('บ้าน'))           return '🏠';
+  if(n.includes('รถ'))             return '🚗';
+  return '💎';
+}
 function buildAssets(){
   const sorted=[...D.assets].sort((a,b)=>b.val-a.val);
   const tot=sorted.reduce((a,f)=>a+f.val,0);
   document.getElementById('assetRows').innerHTML=sorted.map(a=>`
-    <div class="data-row"><span class="data-label">${a.name}</span><span class="data-val">${fmtFull(a.val)}</span></div>`).join('');
+    <div class="data-row">
+      <span class="data-label"><span style="margin-right:8px;font-size:14px;">${getAssetEmoji(a.name)}</span>${a.name}</span>
+      <span class="data-val">${fmtFull(a.val)}</span>
+    </div>`).join('');
   document.getElementById('asset-donut-val').textContent=fmt(tot);
   const purpleShades=genPurpleShades(sorted.length);
   new Chart(document.getElementById('assetDonut'),{
@@ -1717,7 +1881,6 @@ function buildStock(){
 function runDashboard(){
   buildExCircles('ex1',D.ex1_w,D.ex1_c);
   buildExCircles('ex2',D.ex2_w,D.ex2_c);
-  buildWeeklyActivity();
   buildProjects();
   buildGrowth();
   buildWishlist();
@@ -1804,6 +1967,7 @@ async function loadAllSheets(id){
     D.med1=parseInt(prof.p1_med)>=0?parseInt(prof.p1_med):D.med1;
     D.med2=parseInt(prof.p2_med)>=0?parseInt(prof.p2_med):D.med2;
     D.love=parseInt(prof.love)>=0?parseInt(prof.love):D.love;
+    D.family=parseInt(prof.family)>=0?parseInt(prof.family):D.family;
 
     /* Render Profile fields — ดึงจาก Sheet เสมอ */
     const setEl=(id,val)=>{const el=document.getElementById(id);if(el&&val!=null&&val!=='')el.textContent=val;};
@@ -1914,9 +2078,217 @@ window.addEventListener('load',()=>{
   } else {
     document.getElementById('setupModal').style.display='flex';
   }
+
 });
 
 
+
+
+/* ===== WEEKLY LIFE ZONE JS ===== */
+const WL_DAY_NAMES = ['จ','อ','พ','พฤ','ศ','ส','อา'];
+
+/* WL data จะถูก populate จาก Google Sheet ผ่าน D object */
+function loadWLFromSheet(){
+  if(!D) return;
+  const wd=wlGetWD();
+  // Health
+  for(let i=0;i<D.ex1_w;i++) wd[`weight_${i}`]=true;
+  for(let i=0;i<D.ex1_c;i++) wd[`cardio_${i}`]=true;
+  for(let i=0;i<D.med1;i++) wd[`meditate_${i}`]=true;
+  // Relation
+  for(let i=0;i<D.love;i++)   wd[`partner_${i}`]=true;
+  for(let i=0;i<D.family;i++) wd[`family_${i}`]=true;
+}
+
+const WL_SECTIONS = [
+  {
+    id:'health', emoji:'🧠', title:'สุขภาพ กาย + จิต', color:'#c6a96b',
+    habits:[
+      {id:'weight', label:'เวทเทรนนิ่ง', target:3, targetLabel:'3 วัน'},
+      {id:'cardio',  label:'คาร์ดิโอ',    target:2, targetLabel:'2 วัน'},
+      {id:'meditate',label:'นั่งสมาธิ',   target:3, targetLabel:'3 วัน'},
+    ],
+    notes:[]
+  },
+  {
+    id:'relation', emoji:'💛', title:'ความสัมพันธ์', color:'#f7c06a',
+    habits:[
+      {id:'partner', label:'บอกรัก/ทำให้แฟนประทับใจ', target:5, targetLabel:'เป้า 5 วัน'},
+      {id:'family',  label:'โทรหาครอบครัว',            target:2, targetLabel:'เป้า 2 วัน'},
+    ],
+    notes:[]
+  },
+  {
+    id:'learn', emoji:'📚', title:'เรียนรู้และพัฒนา', color:'#6af7c0',
+    habits:[], notes:[], useGrowth:true
+  },
+  {
+    id:'self', emoji:'🌿', title:'เวลาสำหรับตัวเอง', color:'#f76a8a',
+    habits:[], notes:[], useWish:true
+  }
+];
+
+let wlWeekOffset = 0;
+let wlData = {};
+
+function wlGetWeekKey(offset){
+  const now=new Date(), day=now.getDay();
+  const mon=new Date(now);
+  mon.setDate(now.getDate()-((day+6)%7)+offset*7);
+  return mon.toISOString().slice(0,10);
+}
+function wlGetWeekDates(offset){
+  const key=wlGetWeekKey(offset), mon=new Date(key);
+  return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});
+}
+function wlFormatWeekLabel(offset){
+  const dates=wlGetWeekDates(offset);
+  const m=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+  const f=d=>`${d.getDate()} ${m[d.getMonth()]}`;
+  return `${f(dates[0])} – ${f(dates[6])}`;
+}
+function wlGetWD(){
+  const k=wlGetWeekKey(wlWeekOffset);
+  if(!wlData[k])wlData[k]={};
+  return wlData[k];
+}
+function wlCountDone(hid){
+  const wd=wlGetWD();
+  return Array.from({length:7},(_,i)=>wd[`${hid}_${i}`]?1:0).reduce((a,b)=>a+b,0);
+}
+function wlToggleCircle(hid,idx){
+  const wd=wlGetWD();
+  const done=wlCountDone(hid);
+  // ถ้ากด circle ที่ active อยู่ = ลดลง, ถ้า inactive = เพิ่มขึ้น
+  if(idx<done){
+    // ลบ active วันสุดท้าย
+    for(let i=6;i>=0;i--){
+      if(wd[`${hid}_${i}`]){delete wd[`${hid}_${i}`];break;}
+    }
+  } else {
+    // เพิ่ม active วันถัดไป
+    for(let i=0;i<7;i++){
+      if(!wd[`${hid}_${i}`]){wd[`${hid}_${i}`]=true;break;}
+    }
+  }
+  wlRender();
+}
+function wlToggleDay(hid,di){
+  const wd=wlGetWD(),k=`${hid}_${di}`;
+  wd[k]=!wd[k];
+  wlRender();
+}
+function wlUpdateNote(nid,val){wlGetWD()[nid]=val;}
+function wlSecPct(s){
+  if(s.useGrowth) return (D.growth&&D.growth.length>0)?100:0;
+  if(s.useWish)   return (D.wishlist&&D.wishlist.length>0)?100:0;
+  if(!s.habits.length){return wlGetWD()[s.notes?.[0]?.id]?100:0;}
+  const total=s.habits.reduce((a,h)=>a+h.target,0);
+  const done=s.habits.reduce((a,h)=>a+Math.min(wlCountDone(h.id),h.target),0);
+  return total>0?Math.round(done/total*100):0;
+}
+
+function wlRender(){
+  wlRenderOverview();
+  wlRenderSections();
+}
+
+function wlRenderOverview(){
+  const el=document.getElementById('wlOverview');
+  if(!el)return;
+  el.innerHTML=WL_SECTIONS.map(s=>{
+    const pct=wlSecPct(s);
+    return `<div class="wl-ov-card">
+      <div class="wl-ov-emoji">${s.emoji}</div>
+      <div class="wl-ov-info">
+        <div class="wl-ov-name">${s.title}</div>
+        <div class="wl-ov-bar-wrap"><div class="wl-ov-bar" style="width:${pct}%;background:${s.color}"></div></div>
+      </div>
+      <div class="wl-ov-pct">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+function wlRenderSections(){
+  const el=document.getElementById('wlSections');
+  if(!el)return;
+  el.innerHTML=WL_SECTIONS.map(s=>{
+    const pct=wlSecPct(s);
+    const prog=s.habits.length?`${s.habits.reduce((a,h)=>a+Math.min(wlCountDone(h.id),h.target),0)}/${s.habits.reduce((a,h)=>a+h.target,0)}`:'';
+    const collapsed=s._collapsed?'collapsed':'';
+    const habitsHtml=s.habits.map(h=>{
+      const done=wlCountDone(h.id);
+      const circles=Array.from({length:h.target},(_,i)=>{
+        const isActive=i<done;
+        return `<div class="wl-circle ${isActive?'active':'inactive'}" onclick="wlToggleCircle('${h.id}',${i})">
+          ${isActive?'✓':''}
+        </div>`;
+      }).join('');
+      return `<div class="wl-check-row">
+        <span class="wl-check-label">${h.label}</span>
+        <div class="wl-circles">${circles}</div>
+        <span class="wl-check-target">${done}/${h.target} วัน</span>
+      </div>`;
+    }).join('');
+    const notesHtml=s.notes.map(n=>{
+      const val=wlGetWD()[n.id]||'';
+      return `<div>
+        <div class="wl-note-lbl">${n.label}</div>
+        <textarea class="wl-note-input" placeholder="${n.placeholder}" oninput="wlUpdateNote('${n.id}',this.value)">${val}</textarea>
+      </div>`;
+    }).join('');
+    const wishHtml=s.useWish&&D.wishlist&&D.wishlist.length?`
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${D.wishlist.map(w=>`
+          <div style="display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid rgba(247,106,138,0.08);">
+            <div style="width:4px;height:4px;border-radius:50%;background:${w.color||'#f76a8a'};flex-shrink:0;margin-top:5px;"></div>
+            <span style="font-size:11px;color:rgba(245,241,234,0.65);line-height:1.5;">${w.txt}</span>
+          </div>`).join('')}
+      </div>`:'<div style="font-size:10px;color:rgba(245,241,234,0.28);padding:4px 0;">ยังไม่มีข้อมูล</div>';
+    const growthHtml=s.useGrowth&&D.growth&&D.growth.length?`
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${D.growth.map(g=>`
+          <div style="display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid rgba(106,247,192,0.08);">
+            <div style="width:4px;height:4px;border-radius:50%;background:#6af7c0;flex-shrink:0;margin-top:5px;"></div>
+            <span style="font-size:11px;color:rgba(245,241,234,0.65);line-height:1.5;">${g}</span>
+          </div>`).join('')}
+      </div>`:'<div style="font-size:10px;color:rgba(245,241,234,0.28);padding:4px 0;">ยังไม่มีข้อมูล</div>';
+    return `<div class="wl-sec ${collapsed}" id="wlsec_${s.id}" style="margin-bottom:6px;">
+      <div class="wl-sec-hd" onclick="wlToggleSec('${s.id}')">
+        <span class="wl-sec-emoji">${s.emoji}</span>
+        <span class="wl-sec-title">${s.title}</span>
+        <span class="wl-sec-prog" style="color:${s.color}">${prog}</span>
+        <span class="wl-sec-chev">▾</span>
+      </div>
+      <div class="wl-sec-body">${s.useGrowth?growthHtml:s.useWish?wishHtml:habitsHtml+notesHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function wlToggleSec(id){
+  const s=WL_SECTIONS.find(x=>x.id===id);
+  if(s)s._collapsed=!s._collapsed;
+  wlRenderSections();
+}
+
+
+
+function wlInit(){
+  loadWLFromSheet();
+  WL_SECTIONS.forEach(s=>s._collapsed=true);
+  wlRenderOverview();
+  wlRenderSections();
+}
+
+// wlInit จะถูกเรียกจาก window.load ของ Dashboard
+
+
+// Init Weekly Life — run after all JS defined
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(wlInit,50));
+}else{
+  setTimeout(wlInit,50);
+}
 </script>
 
 </body>
